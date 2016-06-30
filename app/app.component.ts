@@ -1,29 +1,11 @@
-// Application Component
+import { Component, OnInit } from '@angular/core';
+import { Hero } from './hero';
+import { HeroDetailComponent } from './hero-detail.component';
+// Importing the Hero Service
+// Don't ever heroService = new HeroService(); This could work, but is a bad idea.
+import { HeroService } from './hero.service';
 
-// Import Component Decorator from Angular Core
-import { Component } from '@angular/core';
 
-// Create a Hero Class Object Constructor
-export class Hero {
-  id: number;
-  name: string;
-}
-
-// Create a HEROES Constant to Later Use
-const HEROES: Hero[] = [
-  { id: 11, name: 'Mr. Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' }
-];
-
-// Create meta data on the component constuctor
 @Component({
   selector: 'my-app',
   template: `
@@ -36,14 +18,7 @@ const HEROES: Hero[] = [
         <span class="badge">{{hero.id}}</span> {{hero.name}}
       </li>
     </ul>
-    <div *ngIf="selectedHero">
-      <h2>{{selectedHero.name}} details!</h2>
-      <div><label>id: </label>{{selectedHero.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="selectedHero.name" placeholder="name"/>
-      </div>
-    </div>
+    <my-hero-detail [hero]="selectedHero"></my-hero-detail>
   `,
   styles: [`
     .selected {
@@ -93,13 +68,28 @@ const HEROES: Hero[] = [
       margin-right: .8em;
       border-radius: 4px 0 0 4px;
     }
-  `]
+  `],
+  directives: [HeroDetailComponent],
+  // Our template needs knowledge of teh HeroService
+  providers: [HeroService]
 })
 
-// Export the App Compenent to be used in other places
-export class AppComponent {
+// Export the App Component to be used in index.html
+// Grab the OnInit decorator and implement with ngOnInit.
+export class AppComponent implements OnInit {
   title = 'Tour of Heroes';
-  public heroes = HEROES;
+  heroes: Hero[];
   selectedHero: Hero;
+  // Constructor: function Book(){} | var myBook = new Book();
+  // The constructor is for simple initializations like wiring constructor parameters to properties
+  // keep complex logic out of the constructor, especially anything that might call a server as a data access method is sure to do.
+  constructor(private heroService: HeroService) { }
+  // Call my ngOnInit. 
+  getHeroes() {
+    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+  }
+  ngOnInit() {
+    this.getHeroes();
+  }
   onSelect(hero: Hero) { this.selectedHero = hero; }
 }
