@@ -71,13 +71,11 @@ import { HeroService } from './hero.service';
   `],
   // Our template needs to know about my-hero-detail
   directives: [HeroDetailComponent],
-  // Our template needs knowledge of the HeroService
-  providers: [HeroService]
 })
 
 // Export the App Component to be used in index.html
 // Grab the OnInit decorator and implement with ngOnInit.
-export class HereoComponent implements OnInit {
+export class HeroesComponent implements OnInit {
   title = 'Tour of Heroes';
   heroes: Hero[];
   selectedHero: Hero;
