@@ -8,14 +8,40 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-// Import Component and Input fro the Angular Core Library
+// Import Component and Input delegator from the Angular Core Library.
+// Import OnInit and OnDestroy interfaces since HeroService has been included. 
 var core_1 = require('@angular/core');
-// Get the Hero Model 
+// This is for showing a hero detail component from the id params
+var router_1 = require('@angular/router');
+// Get the Hero Model to call attributes
 var hero_1 = require('./hero');
+// Import Hero Service so we can fetch a specific hero.
+var hero_service_1 = require('./hero.service');
 // Add meta data to the Component Constructor
 var HeroDetailComponent = (function () {
-    function HeroDetailComponent() {
+    // Build the private heroService and route to the HeroDetailComponent
+    function HeroDetailComponent(heroService, route) {
+        this.heroService = heroService;
+        this.route = route;
     }
+    // Runs on init
+    HeroDetailComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // The subscribe method will deliver our array of route parameters
+        this.sub = this.route.params.subscribe(function (params) {
+            // The javasctipy + operator transforms a string to an integer
+            var id = +params['id'];
+            _this.heroService.getHero(id)
+                .then(function (hero) { return _this.hero = hero; });
+        });
+    };
+    HeroDetailComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
+    };
+    // Navigates backwards one step.
+    HeroDetailComponent.prototype.goBack = function () {
+        window.history.back();
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', hero_1.Hero)
@@ -25,9 +51,9 @@ var HeroDetailComponent = (function () {
             // Define the name the tag <my-hero-detail>
             selector: 'my-hero-detail',
             // Create the needed html template
-            template: "\n    <div *ngIf=\"hero\">\n      <h2>{{hero.name}} details!</h2>\n      <div><label>id: </label>{{hero.id}}</div>\n      <div>\n        <label>name: </label>\n        <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n      </div>\n    </div>\n  "
+            template: "\n    <div *ngIf=\"hero\">\n      <h2>{{hero.name}} details!</h2>\n      <div><label>id: </label>{{hero.id}}</div>\n      <div>\n        <label>name: </label>\n        <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n      </div>\n      <button (click)=\"goBack()\">Back</button>\n    </div>\n  "
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.ActivatedRoute])
     ], HeroDetailComponent);
     return HeroDetailComponent;
 }());

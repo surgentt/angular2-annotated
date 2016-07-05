@@ -18,7 +18,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n    <h1>{{title}}</h1>\n    <a [routerLink]=\"['/heroes']\">Heroes</a>\n    <router-outlet></router-outlet>\n  ",
+            template: "\n    <h1>{{title}}</h1>\n    <a [routerLink]=\"['/dashboard']\">Dashboard</a> | <a [routerLink]=\"['/heroes']\">Heroes</a>\n    <router-outlet></router-outlet>\n  ",
             directives: [router_1.ROUTER_DIRECTIVES],
             providers: [
                 hero_service_1.HeroService

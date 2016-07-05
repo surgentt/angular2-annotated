@@ -12,13 +12,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 // Get the Mock Heres Array
 var mock_heroes_1 = require('./mock-heroes');
-// TS sees the @Injectable Decorator and emits meta data about the service
+// TypeSecruot sees the @Injectable Decorator and emits meta data about the service
 var HeroService = (function () {
     function HeroService() {
     }
     // The Getter method doesn't care where data come from.
     HeroService.prototype.getHeroes = function () {
         return Promise.resolve(mock_heroes_1.HEROES);
+    };
+    HeroService.prototype.getHero = function (id) {
+        return this.getHeroes()
+            .then(function (heroes) { return heroes.filter(function (hero) { return hero.id === id; })[0]; });
     };
     HeroService = __decorate([
         core_1.Injectable(), 

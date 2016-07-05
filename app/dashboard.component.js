@@ -9,15 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var hero_service_1 = require('./hero.service');
 var DashboardComponent = (function () {
-    function DashboardComponent() {
+    // inject the HeroService in the constructor and hold it in a private heroService field.
+    function DashboardComponent(heroService) {
+        this.heroService = heroService;
+        // Create a local heroes array property
+        this.heroes = [];
     }
+    // call the service to get heroes inside the Angular ngOnInit lifecycle hook.
+    DashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.heroService.getHeroes()
+            .then(function (heroes) { return _this.heroes = heroes.slice(1, 5); });
+    };
+    DashboardComponent.prototype.gotoDetail = function () { };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'my-dashboard',
-            template: '<h3>My Dashboard</h3>'
+            templateUrl: 'app/dashboard.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [hero_service_1.HeroService])
     ], DashboardComponent);
     return DashboardComponent;
 }());
