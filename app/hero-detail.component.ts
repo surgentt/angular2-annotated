@@ -15,7 +15,7 @@ import { HeroService } from './hero.service';
   selector: 'my-hero-detail',
   // Create the needed html template
   templateUrl: 'app/hero-detail.component.html',
-  styleUrls: ['app/css/hero-detail.component.css']
+  styleUrls:  ['app/css/hero-detail.component.css']
 })
 
 // Expose the HeroDetailComponent to the rest of the application

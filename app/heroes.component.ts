@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'my-heroes',
   templateUrl: 'app/heroes.component.html',
-  styleUrls: ['app/css/heroes.component.css']
+  styleUrls:  ['app/css/heroes.component.css']
 })
 
 // Export the App Component to be used in index.html
