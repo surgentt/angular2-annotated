@@ -46,7 +46,7 @@ var HeroDetailComponent = (function () {
             // Define the name the tag <my-hero-detail>
             selector: 'my-hero-detail',
             // Create the needed html template
-            templateUrl: 'app/hero-detail.component.html',
+            templateUrl: 'app/html/hero-detail.component.html',
             styleUrls: ['app/css/hero-detail.component.css']
         }), 
         __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.ActivatedRoute])
