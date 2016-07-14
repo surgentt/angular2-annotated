@@ -33,7 +33,7 @@ var DashboardComponent = (function () {
         core_1.Component({
             selector: 'my-dashboard',
             templateUrl: 'app/dashboard.component.html',
-            styleUrls: ['app/dashboard.component.css']
+            styleUrls: ['app/css/dashboard.component.css']
         }), 
         __metadata('design:paramtypes', [router_1.Router, hero_service_1.HeroService])
     ], DashboardComponent);

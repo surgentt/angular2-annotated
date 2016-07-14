@@ -47,7 +47,7 @@ var HeroDetailComponent = (function () {
             selector: 'my-hero-detail',
             // Create the needed html template
             templateUrl: 'app/hero-detail.component.html',
-            styleUrls: ['app/hero-detail.component.css']
+            styleUrls: ['app/css/hero-detail.component.css']
         }), 
         __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.ActivatedRoute])
     ], HeroDetailComponent);
