@@ -54,4 +54,3 @@ var HeroDetailComponent = (function () {
     return HeroDetailComponent;
 }());
 exports.HeroDetailComponent = HeroDetailComponent;
-//# sourceMappingURL=hero-detail.component.js.map
