@@ -22,7 +22,7 @@ var routes = [
         redirectTo: '/dashboard'
     },
 ];
-exports.APP_ROUTER_PROVIDERS = [
+exports.appRouterProviders = [
     router_1.provideRouter(routes)
 ];
 //# sourceMappingURL=app.routes.js.map

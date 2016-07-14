@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router }            from '@angular/router';
 
 // Resue the Hero Service for the dashboard view
 import { Hero } from './hero';
@@ -6,15 +7,20 @@ import { HeroService } from './hero.service';
 
 @Component({
   selector: 'my-dashboard',
-  templateUrl: 'app/dashboard.component.html'
+  templateUrl: 'app/dashboard.component.html',
+  styleUrls: ['app/dashboard.component.css']
 })
 
 export class DashboardComponent implements OnInit {
+
   // Create a local heroes array property
   heroes: Hero[] = [];
 
   // inject the HeroService in the constructor and hold it in a private heroService field.
-  constructor(private heroService: HeroService) { }
+  constructor(
+    private router: Router,
+    private heroService: HeroService) { 
+  }
 
   // call the service to get heroes inside the Angular ngOnInit lifecycle hook.
   ngOnInit() {
@@ -22,5 +28,8 @@ export class DashboardComponent implements OnInit {
       .then(heroes => this.heroes = heroes.slice(1, 5));
   }
 
-  gotoDetail() { /* not implemented yet */}
+  gotoDetail(hero: Hero) {
+    let link = ['/detail', hero.id];
+    this.router.navigate(link);
+  }
 }

@@ -1,9 +1,10 @@
 // Import Component and Input delegator from the Angular Core Library.
 // Import OnInit and OnDestroy interfaces since HeroService has been included. 
-import { Component, Input, OnInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 // This is for showing a hero detail component from the id params
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute }                from '@angular/router';
 // Get the Hero Model to call attributes
+
 import { Hero } from './hero';
 // Import Hero Service so we can fetch a specific hero.
 import { HeroService } from './hero.service';
@@ -13,22 +14,16 @@ import { HeroService } from './hero.service';
   // Define the name the tag <my-hero-detail>
   selector: 'my-hero-detail',
   // Create the needed html template
-  template: `
-    <div *ngIf="hero">
-      <h2>{{hero.name}} details!</h2>
-      <div><label>id: </label>{{hero.id}}</div>
-      <div>
-        <label>name: </label>
-        <input [(ngModel)]="hero.name" placeholder="name"/>
-      </div>
-      <button (click)="goBack()">Back</button>
-    </div>
-  `
+  templateUrl: 'app/hero-detail.component.html',
+  styleUrls: ['app/hero-detail.component.css']
 })
 
 // Expose the HeroDetailComponent to the rest of the application
 // Declaire that the hero property is an input to be used other locations
 export class HeroDetailComponent implements OnInit, OnDestroy {
+  // The component must be told which Hero to display
+  hero: Hero;
+  sub: any;
 
   // Build the private heroService and route to the HeroDetailComponent
   constructor(
@@ -41,6 +36,7 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     // The subscribe method will deliver our array of route parameters
     this.sub = this.route.params.subscribe(params => {
       // The javasctipy + operator transforms a string to an integer
+      // let is similar to var, but with better scoping
       let id = +params['id'];
       this.heroService.getHero(id)
         .then(hero => this.hero = hero);
@@ -56,11 +52,4 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     window.history.back();
   }
 
-  // Notice that the hero property is the target of a property binding — it's in square brackets to the left of the (=).
-  // Angular insists that we declare a target property to be an input property. If we don't, Angular rejects the binding and throws an error.
-  // Annotate the hero property with the @Input decorator 
-  // <my-hero-detail [hero]="selectedHero"></my-hero-detail>
-  @Input()
-  // The component must be told which Hero to display
-  hero: Hero;
 }

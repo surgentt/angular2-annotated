@@ -13,8 +13,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 // This is for showing a hero detail component from the id params
 var router_1 = require('@angular/router');
-// Get the Hero Model to call attributes
-var hero_1 = require('./hero');
 // Import Hero Service so we can fetch a specific hero.
 var hero_service_1 = require('./hero.service');
 // Add meta data to the Component Constructor
@@ -30,6 +28,7 @@ var HeroDetailComponent = (function () {
         // The subscribe method will deliver our array of route parameters
         this.sub = this.route.params.subscribe(function (params) {
             // The javasctipy + operator transforms a string to an integer
+            // let is similar to var, but with better scoping
             var id = +params['id'];
             _this.heroService.getHero(id)
                 .then(function (hero) { return _this.hero = hero; });
@@ -42,16 +41,13 @@ var HeroDetailComponent = (function () {
     HeroDetailComponent.prototype.goBack = function () {
         window.history.back();
     };
-    __decorate([
-        core_1.Input(), 
-        __metadata('design:type', hero_1.Hero)
-    ], HeroDetailComponent.prototype, "hero", void 0);
     HeroDetailComponent = __decorate([
         core_1.Component({
             // Define the name the tag <my-hero-detail>
             selector: 'my-hero-detail',
             // Create the needed html template
-            template: "\n    <div *ngIf=\"hero\">\n      <h2>{{hero.name}} details!</h2>\n      <div><label>id: </label>{{hero.id}}</div>\n      <div>\n        <label>name: </label>\n        <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n      </div>\n      <button (click)=\"goBack()\">Back</button>\n    </div>\n  "
+            templateUrl: 'app/hero-detail.component.html',
+            styleUrls: ['app/hero-detail.component.css']
         }), 
         __metadata('design:paramtypes', [hero_service_1.HeroService, router_1.ActivatedRoute])
     ], HeroDetailComponent);
