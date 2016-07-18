@@ -6,13 +6,12 @@ import { Hero } from './hero';
 import { HeroService } from './hero.service';
 
 @Component({
-  selector: 'my-dashboard',
+  selector:    'my-dashboard',
   templateUrl: 'app/html/dashboard.component.html',
   styleUrls:  ['app/css/dashboard.component.css']
 })
 
 export class DashboardComponent implements OnInit {
-
   // Create a local heroes array property
   heroes: Hero[] = [];
 

@@ -9,10 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-// Importing the Hero Service
-// Don't ever heroService = new HeroService(); This could work, but is a bad idea.
-var hero_service_1 = require('./hero.service');
 var router_1 = require('@angular/router');
+var hero_service_1 = require('./hero.service');
 var HeroesComponent = (function () {
     // Constructor: function Book(){} | var myBook = new Book();
     // The constructor is for simple initializations like wiring constructor parameters to properties
@@ -21,13 +19,12 @@ var HeroesComponent = (function () {
         this.router = router;
         this.heroService = heroService;
     }
-    // Call my ngOnInit. 
+    HeroesComponent.prototype.ngOnInit = function () {
+        this.getHeroes();
+    };
     HeroesComponent.prototype.getHeroes = function () {
         var _this = this;
         this.heroService.getHeroes().then(function (heroes) { return _this.heroes = heroes; });
-    };
-    HeroesComponent.prototype.ngOnInit = function () {
-        this.getHeroes();
     };
     HeroesComponent.prototype.onSelect = function (hero) { this.selectedHero = hero; };
     HeroesComponent.prototype.gotoDetail = function () {

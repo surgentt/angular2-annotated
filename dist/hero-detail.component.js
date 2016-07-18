@@ -43,9 +43,7 @@ var HeroDetailComponent = (function () {
     };
     HeroDetailComponent = __decorate([
         core_1.Component({
-            // Define the name the tag <my-hero-detail>
             selector: 'my-hero-detail',
-            // Create the needed html template
             templateUrl: 'app/html/hero-detail.component.html',
             styleUrls: ['app/css/hero-detail.component.css']
         }), 
@@ -53,4 +51,4 @@ var HeroDetailComponent = (function () {
     ], HeroDetailComponent);
     return HeroDetailComponent;
 }());
-exports.HeroDetailComponent = HeroDetailComponent;
+exports.HeroDetailComponent = HeroDetailComponent; // End

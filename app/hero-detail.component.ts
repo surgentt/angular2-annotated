@@ -4,16 +4,13 @@ import { Component, OnInit, OnDestroy  } from '@angular/core';
 // This is for showing a hero detail component from the id params
 import { ActivatedRoute }                from '@angular/router';
 // Get the Hero Model to call attributes
-
 import { Hero } from './hero';
 // Import Hero Service so we can fetch a specific hero.
 import { HeroService } from './hero.service';
 
 // Add meta data to the Component Constructor
 @Component({
-  // Define the name the tag <my-hero-detail>
-  selector: 'my-hero-detail',
-  // Create the needed html template
+  selector:    'my-hero-detail',
   templateUrl: 'app/html/hero-detail.component.html',
   styleUrls:  ['app/css/hero-detail.component.css']
 })
@@ -52,4 +49,4 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
     window.history.back();
   }
 
-}
+} // End

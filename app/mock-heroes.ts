@@ -1,4 +1,4 @@
-// Get the Hero modal 
+// Get the Hero objecys 
 import { Hero } from './hero';
 
 // Create Heroes Constant 
