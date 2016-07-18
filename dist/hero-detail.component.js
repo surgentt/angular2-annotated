@@ -13,6 +13,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 // This is for showing a hero detail component from the id params
 var router_1 = require('@angular/router');
+// Get the Hero Model to call attributes
+var hero_1 = require('./hero');
 // Import Hero Service so we can fetch a specific hero.
 var hero_service_1 = require('./hero.service');
 // Add meta data to the Component Constructor
@@ -21,26 +23,57 @@ var HeroDetailComponent = (function () {
     function HeroDetailComponent(heroService, route) {
         this.heroService = heroService;
         this.route = route;
+        this.close = new core_1.EventEmitter();
+        this.navigated = false; // true if navigated here
     }
-    // Runs on init
+    // Runs OnInit
     HeroDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         // The subscribe method will deliver our array of route parameters
         this.sub = this.route.params.subscribe(function (params) {
-            // The javasctipy + operator transforms a string to an integer
-            // let is similar to var, but with better scoping
-            var id = +params['id'];
-            _this.heroService.getHero(id)
-                .then(function (hero) { return _this.hero = hero; });
+            if (params['id'] !== undefined) {
+                // The javasctipy + operator transforms a string to an integer
+                // let is similar to var, but with better scoping
+                var id = +params['id'];
+                _this.navigated = true;
+                _this.heroService.getHero(id)
+                    .then(function (hero) { return _this.hero = hero; });
+            }
+            else {
+                _this.navigated = false;
+                _this.hero = new hero_1.Hero();
+            }
         });
     };
     HeroDetailComponent.prototype.ngOnDestroy = function () {
         this.sub.unsubscribe();
     };
-    // Navigates backwards one step.
-    HeroDetailComponent.prototype.goBack = function () {
-        window.history.back();
+    HeroDetailComponent.prototype.save = function () {
+        var _this = this;
+        this.heroService
+            .save(this.hero)
+            .then(function (hero) {
+            _this.hero = hero; // saved hero, w/ id if new
+            _this.goBack(hero);
+        })
+            .catch(function (error) { return _this.error = error; }); // TODO: Display error message
     };
+    // Navigates backwards one step.
+    HeroDetailComponent.prototype.goBack = function (savedHero) {
+        if (savedHero === void 0) { savedHero = null; }
+        this.close.emit(savedHero);
+        if (this.navigated) {
+            window.history.back();
+        }
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', hero_1.Hero)
+    ], HeroDetailComponent.prototype, "hero", void 0);
+    __decorate([
+        core_1.Output(), 
+        __metadata('design:type', Object)
+    ], HeroDetailComponent.prototype, "close", void 0);
     HeroDetailComponent = __decorate([
         core_1.Component({
             selector: 'my-hero-detail',
