@@ -4,11 +4,10 @@ import { XHRBackend } from '@angular/http';
 import { InMemoryBackendService, SEED_DATA } from 'angular2-in-memory-web-api';
 import { InMemoryDataService }               from './in-memory-data.service';
 
-
 // bootstrap is used to start the application. It is not css related. 
 import { bootstrap }          from '@angular/platform-browser-dynamic';
 // Https is not a core provider
-import { HTTP_PROVIDERS } from '@angular/http';
+import { HTTP_PROVIDERS }     from '@angular/http';
 
 // Get the app Compononent
 import { AppComponent }       from './app.component';
