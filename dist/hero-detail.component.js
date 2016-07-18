@@ -17,7 +17,7 @@ var router_1 = require('@angular/router');
 var hero_1 = require('./hero');
 // Import Hero Service so we can fetch a specific hero.
 var hero_service_1 = require('./hero.service');
-// Add meta data to the Component Constructor
+// Add meta data to the Component Decorator
 var HeroDetailComponent = (function () {
     // Build the private heroService and route to the HeroDetailComponent
     function HeroDetailComponent(heroService, route) {
@@ -41,7 +41,7 @@ var HeroDetailComponent = (function () {
             }
             else {
                 _this.navigated = false;
-                _this.hero = new hero_1.Hero();
+                _this.hero = new hero_1.Hero(); // The hero-detail.component.html requires an instance of Hero to be shown to the page. 
             }
         });
     };

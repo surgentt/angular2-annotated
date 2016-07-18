@@ -11,27 +11,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/toPromise');
+// TODO: Unsure why we need this here. 
 var HeroService = (function () {
+    // Gain Access of our own http Decorator Instance. 
     function HeroService(http) {
         this.http = http;
-        this.heroesUrl = 'app/heroes'; // URL to web api
+        // URL to web api
+        this.heroesUrl = 'app/heroes';
     }
+    // Index view
     HeroService.prototype.getHeroes = function () {
         return this.http.get(this.heroesUrl)
             .toPromise()
             .then(function (response) { return response.json().data; })
             .catch(this.handleError);
     };
+    // Show View
     HeroService.prototype.getHero = function (id) {
         return this.getHeroes()
             .then(function (heroes) { return heroes.find(function (hero) { return hero.id === id; }); });
     };
+    // Create or Update
     HeroService.prototype.save = function (hero) {
         if (hero.id) {
             return this.put(hero);
         }
         return this.post(hero);
     };
+    // Destory
     HeroService.prototype.delete = function (hero) {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');

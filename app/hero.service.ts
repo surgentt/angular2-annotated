@@ -5,13 +5,17 @@ import 'rxjs/add/operator/toPromise';
 
 import { Hero } from './hero';
 
+// TODO: Unsure why we need this here. 
 @Injectable()
 export class HeroService {
 
-  private heroesUrl = 'app/heroes';  // URL to web api
+  // URL to web api
+  private heroesUrl = 'app/heroes';  
 
+  // Gain Access of our own http Decorator Instance. 
   constructor(private http: Http) { }
 
+  // Index view
   getHeroes(): Promise<Hero[]> {
     return this.http.get(this.heroesUrl)
                .toPromise()
@@ -19,11 +23,13 @@ export class HeroService {
                .catch(this.handleError);
   }
 
+  // Show View
   getHero(id: number) {
     return this.getHeroes()
                .then(heroes => heroes.find(hero => hero.id === id));
   }
 
+  // Create or Update
   save(hero: Hero): Promise<Hero>  {
     if (hero.id) {
       return this.put(hero);
@@ -31,6 +37,7 @@ export class HeroService {
     return this.post(hero);
   }
 
+  // Destory
   delete(hero: Hero) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

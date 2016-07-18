@@ -9,7 +9,7 @@ import { Hero } from './hero';
 // Import Hero Service so we can fetch a specific hero.
 import { HeroService } from './hero.service';
 
-// Add meta data to the Component Constructor
+// Add meta data to the Component Decorator
 @Component({
   selector:    'my-hero-detail',
   templateUrl: 'app/html/hero-detail.component.html',
@@ -22,8 +22,8 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
   // The component must be told which Hero to display
   @Input() hero: Hero;
   @Output() close = new EventEmitter();
-  error: any;
-  sub: any;
+  error: any; // TypeScript any, not declaring object type
+  sub: any;   // TypeScript any, not declaring object type
   navigated = false; // true if navigated here
 
   // Build the private heroService and route to the HeroDetailComponent
@@ -45,7 +45,7 @@ export class HeroDetailComponent implements OnInit, OnDestroy {
             .then(hero => this.hero = hero);
       } else {
         this.navigated = false;
-        this.hero = new Hero();
+        this.hero = new Hero(); // The hero-detail.component.html requires an instance of Hero to be shown to the page. 
       }
     });
   }
